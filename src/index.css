@@ -39,34 +39,6 @@
     --dark-theme-hr-border-bottom: 1px solid rgba(255, 255, 255, 1);
 }
 
-/* .container {
-    margin-inline: auto;
-    width: 1120px;
-    align-content: center;
-    padding-top: 150px;
-    padding-bottom: 150px;
-}
-
-body {
-    font-family: var(--body-text-font);
-    line-height: 1.6;
-    overflow: auto;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100%;
-    position: relative;
-} */
-
-/* body {
-    font-family: var(--body-text-font);
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    overflow-x: hidden;
-} */
-
 html, body {
     height: 100%;        /* Ensure html and body take full viewport height */
     margin: 0;
