@@ -1,6 +1,6 @@
 # Zest - web app
 
-Zest is a web app that lets users find and sort recipes.
+Zest is a recipe finder app where you search by ingredients and get detailed recipes with videos, images, and nutrition info.
 
 ## Table of Contents
 
@@ -102,6 +102,7 @@ Follow the steps below to effectively use "Zest" and accomplish tasks in the app
 ![Macbook Pro-1699695506104](https://github.com/chingu-voyages/v46-tier2-team-16/assets/76844097/8eecd40e-1b3d-42cc-b4be-be3e9e407fc3)
 
 ![Macbook Pro-1699698916454](https://github.com/chingu-voyages/v46-tier2-team-16/assets/76844097/fb1c852e-af02-4a90-a27e-792aaf59fd97)
+
 
 
 
