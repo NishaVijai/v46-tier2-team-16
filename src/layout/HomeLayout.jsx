@@ -10,8 +10,13 @@ const HomeLayout = () => {
   return (
     <>
       <Header />
-      <main className={`${styles.main} ${isDarkTheme ? styles['dark-theme'] : styles['light-theme']}`}>
-        <Outlet className={styles.outlet} />
+      <main
+        className={`${styles.main} ${isDarkTheme ? styles['dark-theme'] : styles['light-theme']
+          }`}
+      >
+        <div className={styles.outlet}>
+          <Outlet />
+        </div>
       </main>
       <Footer />
     </>

@@ -1,37 +1,46 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import RecipeItem from '../../components/recipeItem/RecipeItem';
 import RelatedRecipes from '../../components/RelatedRecipes/RelatedRecipes';
 import { Loader } from '../../components/Loader';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchRecipeById } from '../../features/slice/recipeSliceById';
-import { useEffect } from 'react';
 import { TopBtn } from '../../components/TopBtn';
 
+import {
+  fetchRecipeById,
+  clearRecipeById,
+} from '../../features/slice/recipeSliceById';
+
 const RecipeDetails = () => {
-    const params = useParams();
-    const recipeId = parseInt(params.id);
-    const dispatch = useDispatch();
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchRecipeById(params.id));
-    }, [dispatch, recipeId]);
+  const { recipeById, loading, error } = useSelector(
+    (state) => state.recipeById
+  );
 
-    const recipeById = useSelector((state) => state.recipeById);
-    const selectedRecipe = recipeById.recipeById;
-    return (
-        <>
-            {recipeById.loading && <Loader />}
-            {!recipeById.loading && selectedRecipe ? (
-                <>
-                    <RecipeItem selectedRecipe={selectedRecipe} />
-                    <RelatedRecipes recipeId={recipeId} />
-                </>
-            ) : (
-                <></>
-            )}
-            <TopBtn />
-        </>
-    );
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchRecipeById(id));
+    }
+
+    return () => {
+      dispatch(clearRecipeById());
+    };
+  }, [dispatch, id]);
+
+  if (loading) return <Loader />;
+  if (error) return <p style={{ textAlign: 'center' }}>{error}</p>;
+  if (!recipeById) return null;
+
+  return (
+    <>
+      <RecipeItem selectedRecipe={recipeById} />
+      <RelatedRecipes recipeId={id} />
+      <TopBtn />
+    </>
+  );
 };
 
 export default RecipeDetails;

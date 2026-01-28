@@ -4,12 +4,20 @@ Zest is a web app that lets users find and sort recipes.
 
 ## Table of Contents
 
+- [Preview](#preview)
+- [Screenshot](#screenshot)
 - [Project Description](#project-description)
 - [Major Functions and Features](#major-functions-and-features)
 - [Dependencies](#dependencies)
 - [Project setup](#project-setup)
 - [Usage](#usage)
 - [Deployment](#deployment)
+
+## Preview
+https://zest-find-recipes.netlify.app/
+
+## Screenshot
+
 
 ## Project Description
 
@@ -79,9 +87,6 @@ Follow the steps below to effectively use "Zest" and accomplish tasks in the app
    This will start a development server, and you can access the app by visiting the specified URL in your web browser.
 
 ## Deployment
-
-- Preview link
-https://main--chingu-voyage-v46-tier-2-team-16.netlify.app/
 
 - Screenshot of the project 
 

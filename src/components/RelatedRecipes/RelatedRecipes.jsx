@@ -1,40 +1,62 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRelatedRecipe } from '../../features/slice/relatedRecipesSlice';
-import { useGlobalContext } from '../../contexts/DarkModeContext';
-import styles from './RelatedRecipes.module.css';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { fetchRelatedRecipes } from '../../features/slice/recipeSlice';
+import { useGlobalContext } from '../../contexts/DarkModeContext';
+import styles from './RelatedRecipes.module.css';
+
 const RelatedRecipes = ({ recipeId }) => {
-    const dispatch = useDispatch();
-    const { isDarkTheme } = useGlobalContext();
+  const dispatch = useDispatch();
+  const { isDarkTheme } = useGlobalContext();
 
-    useEffect(() => {
-        dispatch(fetchRelatedRecipe(recipeId));
-    }, [dispatch, recipeId]);
+  const relatedRecipes = useSelector(
+    (state) => state.recipe.relatedRecipes
+  );
 
-    const relatedRecipes = useSelector((state) => state.relatedRecipes);
-    const listToDisplay = relatedRecipes.relatedRecipes;
-
-    if (!listToDisplay) {
-        return <></>;
+  useEffect(() => {
+    if (recipeId) {
+      dispatch(fetchRelatedRecipes(recipeId));
     }
+  }, [dispatch, recipeId]);
 
-    return (
-        <section className={styles.container}>
-            <h3 className={styles.title}>Related Recipes</h3>
-            <ul className={styles.list}>
-                {[...listToDisplay].map((oneRecipe) => (
-                    <Link key={oneRecipe.id} to={`/recipe/${oneRecipe.id}`}>
-                        <li className={`${styles.recipe} ${isDarkTheme ? styles['dark-recipe'] : ''}`}>
-                            <img className={styles.image} src={oneRecipe.thumbnail_url} alt={oneRecipe.slug} />
-                            <p className={`${styles.recipeName} ${isDarkTheme ? styles['dark-recipeName'] : ''}`}>{oneRecipe.name}</p>
-                        </li>
-                    </Link>
-                ))}
-            </ul>
-        </section>
-    );
+  if (!Array.isArray(relatedRecipes) || relatedRecipes.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className={styles.container}>
+      <h3 className={styles.title}>Related Recipes</h3>
+
+      <ul className={styles.list}>
+        {relatedRecipes.map((recipe) => (
+          <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
+            <li
+              className={`${styles.recipe} ${isDarkTheme ? styles['dark-recipe'] : ''
+                }`}
+            >
+              <img
+                className={styles.image}
+                src={recipe.thumbnail_url || '/placeholder.jpg'}
+                alt={recipe.name || 'Recipe'}
+              />
+              <p
+                className={`${styles.recipeName} ${isDarkTheme ? styles['dark-recipeName'] : ''
+                  }`}
+              >
+                {recipe.name || 'Unnamed Recipe'}
+              </p>
+            </li>
+          </Link>
+        ))}
+      </ul>
+    </section>
+  );
+};
+
+RelatedRecipes.propTypes = {
+  recipeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default RelatedRecipes;

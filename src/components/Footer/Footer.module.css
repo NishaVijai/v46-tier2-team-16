@@ -6,8 +6,9 @@ footer {
         "logoSection"
         "linksSection"
         "copyrightSection";
-    align-items: start;
-    justify-content: start;
+    place-items: center;
+    /* align-items: start;
+    justify-content: start; */
     padding: 1.5rem;
     position: relative;
 }
@@ -93,7 +94,8 @@ a {
 
 .copyright-section {
     grid-area: copyrightSection;
-    align-items: center;
+    /* align-items: center; */
+    font-size: 1.1rem;
 }
 
 .copyright-section a {
@@ -103,7 +105,16 @@ a {
 /* media query for desktop */
 @media only screen and (min-device-width: 768px) and (max-device-width: 6024px) {
     footer {
-        padding: 3rem 8rem;
+      /* grid-template-columns: repeat(3, 1fr); */
+      grid-template-rows: auto 1fr;
+      /* padding: 3rem 8rem; */
+    }
+
+    footer section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
     }
 
     a {
@@ -167,6 +178,7 @@ a {
     .copyright-section {
         align-items: start;
         position: relative;
+        /* font-size: 1.3rem; */
     }
 
     .copyright-section p {

@@ -39,7 +39,7 @@
     --dark-theme-hr-border-bottom: 1px solid rgba(255, 255, 255, 1);
 }
 
-.container {
+/* .container {
     margin-inline: auto;
     width: 1120px;
     align-content: center;
@@ -54,7 +54,43 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    width: 100%;
     position: relative;
+} */
+
+/* body {
+    font-family: var(--body-text-font);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+} */
+
+html, body {
+    height: 100%;        /* Ensure html and body take full viewport height */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--body-text-font);
+    display: flex;       /* optional: makes it easy to center content vertically */
+    flex-direction: column;
+    min-height: 100vh;   /* ensures body always fills at least full viewport height */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+
+.container {
+    max-width: 1120px;   /* maximum width for large screens */
+    width: 90%;           /* flexible for smaller screens */
+    margin: 0 auto;
+    padding-top: 150px;
+    padding-bottom: 150px;
 }
 
 /* media query for desktop */

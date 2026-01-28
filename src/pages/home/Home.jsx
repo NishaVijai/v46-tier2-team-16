@@ -8,65 +8,74 @@ import { Banner } from '../../components/Banner';
 import { TopBtn } from '../../components/TopBtn';
 
 const Home = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const { recipes, loading } = useSelector((state) => state.recipe);
 
-    const recipe = useSelector((state) => state.recipe);
-    const recipeResults = recipe.recipes.results;
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-    const [newSearch, setNewSearch] = useState('');
-    const [filteredByIngredient, setFilteredByIngredient] = useState([]);
+  // Fetch all recipes on mount
+  useEffect(() => {
+    dispatch(fetchRecipes());
+  }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(fetchRecipes());
-    }, [dispatch]);
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    filterByIngredient(term);
+  };
 
-    const handleSearch = (newSearch) => {
-        setNewSearch(newSearch);
-        searchByIngredient(newSearch);
-    };
+  const filterByIngredient = (term) => {
+    if (!term) {
+      setFilteredRecipes([]);
+      return;
+    }
 
-    const searchByIngredient = (newSearch) => {
-        if (newSearch === '') {
-            setFilteredByIngredient([]);
-        } else {
-            // split search in array
-            const searchIngredients = newSearch.split(/[\s,; ]+/);
+    const searchIngredients = term
+      .split(/[\s,;]+/)
+      .filter(Boolean)
+      .map((item) => item.toLowerCase());
 
-            const filteredRecipes = recipeResults.filter((recipe) => {
-                // extract all ingredient names from current recipe
-                const recipeIngredients = recipe.sections[0].components.map((component) => component.ingredient.name);
+    const results = recipes.filter((recipe) => {
+      const recipeIngredients =
+        recipe.sections?.flatMap((section) =>
+          section.components?.map(
+            (component) => component.ingredient?.name?.toLowerCase() || ''
+          )
+        ) || [];
 
-                // true if ALL search ingredients are found in recipe
-                return searchIngredients.every((searchIngredient) => {
-                    // for each search ingredient, true if at least ONE ingredient is found
-                    return recipeIngredients.some((recipeIngredient) => {
-                        return recipeIngredient.toLowerCase().includes(searchIngredient.toLowerCase());
-                    });
-                });
-            });
+      return searchIngredients.every((searchIng) =>
+        recipeIngredients.some((ing) => ing.includes(searchIng))
+      );
+    });
 
-            setFilteredByIngredient(filteredRecipes);
-        }
-    };
+    setFilteredRecipes(results);
+  };
 
-    const recipesToDisplay = useMemo(() => {
-        if (newSearch === '' && filteredByIngredient.length === 0) {
-            return recipeResults || [];
-        } else if (newSearch !== '' && filteredByIngredient.length !== 0) {
-            return filteredByIngredient;
-        } else if (newSearch !== '' && filteredByIngredient.length === 0) {
-            return [];
-        }
-    }, [recipeResults, newSearch, filteredByIngredient]);
+  const recipesToDisplay = useMemo(() => {
+    if (!searchTerm) return recipes;
+    return filteredRecipes;
+  }, [recipes, searchTerm, filteredRecipes]);
 
-    return (
-        <>
-            <Banner />
-            <Search handleSearch={handleSearch} />
-            {recipeResults ? <Recipe recipe={recipeResults} recipesToDisplay={recipesToDisplay} /> : <></>}
-            <TopBtn />
-        </>
-    );
+  return (
+    <>
+      <Banner />
+      <Search handleSearch={handleSearch} />
+
+      {loading && <Loader />}
+
+      {!loading && recipesToDisplay.length === 0 && recipes.length > 0 && (
+        <p style={{ textAlign: 'center', marginTop: '2rem' }}>
+          Sorry, no recipe to satisfy your papilles!
+        </p>
+      )}
+
+      {!loading && recipesToDisplay.length > 0 && (
+        <Recipe recipesToDisplay={recipesToDisplay} />
+      )}
+
+      <TopBtn />
+    </>
+  );
 };
 
 export default Home;

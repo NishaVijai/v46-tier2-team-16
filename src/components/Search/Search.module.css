@@ -17,15 +17,16 @@
 }
 
 p {
-  color: #393939
+  /* color: #393939; */
 }
 
 .search{
   display: flex;
   flex-direction: row;
+  /* flex-wrap: wrap; */
   align-self: center;
   height: 40px;
-  width: 280px;
+  /* width: 280px; */
 }
 
 .containerInput{
