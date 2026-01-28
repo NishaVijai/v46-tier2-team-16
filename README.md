@@ -17,7 +17,7 @@ Zest is a web app that lets users find and sort recipes.
 https://zest-find-recipes.netlify.app/
 
 ## Screenshot
-<img width="3840" height="3561" alt="Zest App" src="https://github.com/user-attachments/assets/3f0a7bfe-6ae9-4da5-8d6e-a90390dc4e9d" />
+<img width="3840" height="3454" alt="Zest App" src="https://github.com/user-attachments/assets/0e0ffc06-1c75-4e1d-9b20-396132688387" />
 
 ## Project Description
 
@@ -102,6 +102,7 @@ Follow the steps below to effectively use "Zest" and accomplish tasks in the app
 ![Macbook Pro-1699695506104](https://github.com/chingu-voyages/v46-tier2-team-16/assets/76844097/8eecd40e-1b3d-42cc-b4be-be3e9e407fc3)
 
 ![Macbook Pro-1699698916454](https://github.com/chingu-voyages/v46-tier2-team-16/assets/76844097/fb1c852e-af02-4a90-a27e-792aaf59fd97)
+
 
 
 
